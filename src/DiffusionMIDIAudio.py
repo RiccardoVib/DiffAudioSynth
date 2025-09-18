@@ -291,7 +291,6 @@ def train_diffusion_model(dataset, dataset_val, model_path, noise_steps, epochs=
 
     # Load last checkpoint
     checkpoint = ckpt_manager.load_last_checkpoint(diffusion, optimizer, device=device)
-    #diffusion.encoder.load_state_dict(checkpoint['encoder_state_dict'])
 
     if checkpoint:
         start_epoch = checkpoint['epoch'] + 1
@@ -303,7 +302,7 @@ def train_diffusion_model(dataset, dataset_val, model_path, noise_steps, epochs=
         print("Starting training from scratch")
         best_loss = float('inf')
 
-    n_fft = audio_length - 1
+    n_fft = audio_length
     train_losses, val_losses = [], []
     # Training loop
     epoch = 0
