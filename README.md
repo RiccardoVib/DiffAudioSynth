@@ -65,31 +65,29 @@ Available options (to be changed in starterMIDI.py or starterMIDI_test.py) :
 * --fs - The desired sample rate [int] (default=48000)
 * --stride - Number of samples of the overlap [int] (default=0)
 * --noise_steps = The number of denoising steps. [ [int] ] (default=1000)
-* --mono - the initial learning rate [float] (default=3e-4)
-* --data_type - When True, skips training and runs only inference on the pre-model. When False, runs training and inference on the trained model. [bool] (default=False)
-* --resolution = 2
-* --output_lengths = [4096, 2048, 1024, 512]
-* --input_dimension = 1
-* --output_dimension = 1
-* --save_dataset = False
-* --load_dataset = False
-* --shuffle = True
-* --all_in_memory = True
+* --mono - If mono or stereo [bool] (default=True)
+* --data_type - Data type considered. [str] (default='torch.float32')
+* --resolution - MIDI resolution. [in] (default=2)
+* --output_lengths - Frame size to produce each iteration [[int]]. (default=[4096, 2048, 1024, 512])
+* --save_dataset - If save the dataset [bool] (default=False)
+* --load_dataset - If load an already saved dataset [bool] (default=False)
+* --shuffle - If shuffle the dataset [bool] (default=False)
+* --all_in_memory - If load all the data in the memory [bool] (default=True)
 
 Example training case: 
 ```
 cd ./code/
 
-python starter.py --datasets DatasetSingleNoteFilter_ --model S6 --epochs 500
+python starterMIDI.py
 ```
 
-To only run inference on an existing pre-trained model, use the "only_inference". In this case, ensure you have the existing model and dataset (to use for inference) both in their respective directories with corresponding names.
+To only run inference on an existing pre-trained model, use the starterMIDI_test.py script. In this case, ensure you have the existing model and dataset (to use for inference) both in their respective directories with corresponding names.
 
 Example inference case:
 ```
 cd ./code/
 
-python starter.py --datasets DatasetSingleNoteFilter_ --model S6 --only_inference True
+python starterMIDI_test.py
 ```
 
 # Audio Example
