@@ -1,3 +1,17 @@
+# Copyright (C) 2025 Riccardo Simionato, University of Oslo
+# Inquiries: riccardo.simionato.vib@gmail.com.com
+#
+# This code is free software: you can redistribute it and/or modify it under the terms
+# of the GNU Lesser General Public License as published by the Free Software Foundation,
+# either version 3 of the License, or (at your option) any later version.
+#
+# This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU Less General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along with this code.
+# If not, see <http://www.gnu.org/licenses/>.
+
 import json
 import numpy as np
 import torch
@@ -220,7 +234,7 @@ def test_diffusion_model(dataset_val, model_path, noise_steps):
 
     diffusion = DiffusionModel(model, audio_length=audio_length, audio_size=1, noise_steps=noise_steps, device=device)
 
-    n_fft = audio_length - 1
+    n_fft = audio_length
 
     # Load best checkpoint
     best_checkpoint = ckpt_manager.load_best_checkpoint(diffusion, device=device)
@@ -232,7 +246,7 @@ def test_diffusion_model(dataset_val, model_path, noise_steps):
 
     predictions = torch.zeros(max - 1, 5, audio_length // 2)
     targets = torch.zeros(max - 1, 5, audio_length // 2)
-    # targets_images = torch.zeros(max, 5, audio_length // 2)
+    targets_images = torch.zeros(max - 1, 5, audio_length // 2)
 
     input = torch.from_numpy(val_dataloader.sampler.data_source.audio_chunks_outputs[0: max - 1]).to(diffusion.device)
     cond = torch.from_numpy(val_dataloader.sampler.data_source.audio_chunks_inputs[1: max]).to(
@@ -250,13 +264,12 @@ def test_diffusion_model(dataset_val, model_path, noise_steps):
     target_stft = torch.stft(target.squeeze(), n_fft=n_fft, win_length=n_fft, hop_length=n_fft // 4,
                              window=window, return_complex=True)  # b, f, t
 
-    # target_stft = target_stft[None]
     target_image = target_stft.imag
     target_stft = target_stft.real
     target_stft = rearrange(target_stft, 'b f t -> b t f')
     target_image = rearrange(target_image, 'b f t -> b t f')
 
-    # input_stft_ = input_stft[0:1]
+    input_stft_ = input_stft[0:1]
     # For each audio chunk
     for n in range(max - 1):
         print('iteration n: ', n)
@@ -264,9 +277,7 @@ def test_diffusion_model(dataset_val, model_path, noise_steps):
 
         start_time = time.time()
 
-        input_stft_, target_stft_ = visualize_samples(input_stft[n:n + 1], target_stft[n:n + 1], cond[n:n + 1], n_fft,
-                                                      window, diffusion)
-        # input_stft_, target_stft_ = visualize_samples(input_stft_, target_stft[n:n+1], cond[n:n+1], n_fft, window, diffusion)
+        input_stft_, target_stft_ = visualize_samples(input_stft_, target_stft[n:n+1], cond[n:n+1], n_fft, window, diffusion)
         end_time = time.time()
 
         processing_time = end_time - start_time
@@ -289,7 +300,7 @@ def test_diffusion_model(dataset_val, model_path, noise_steps):
     window = window.to(diffusion.device)
     predictions = predictions.to(diffusion.device)
 
-    predictions = torch.istft(torch.complex(predictions, targets_images), n_fft=n_fft, hop_length=n_fft // 4,
+    predictions = torch.istft(torch.complex(predictions, torch.zeros_like(targets_images), n_fft=n_fft, hop_length=n_fft // 4,
                               win_length=n_fft, window=window, return_complex=False,
                               length=audio_length)  # Force output to match original length
     targets = torch.istft(torch.complex(targets, targets_images), n_fft=n_fft, hop_length=n_fft // 4, win_length=n_fft,
@@ -318,14 +329,6 @@ def test_diffusion_model(dataset_val, model_path, noise_steps):
 
 def visualize_samples(inputs, targets, cond, n_fft, window, diffusion):
     """Visualize samples from the diffusion model."""
-    samples = diffusion.sample(input=inputs, target=targets, cond=cond, num_steps=1)  # diffusion.noise_steps)
-    # samples = rearrange(samples, 'b t f -> b f t')
-    # targets = rearrange(targets, 'b t f -> b f t')
-
-    # targets = targets.to(samples.device)
-    # window = window.to(samples.device)
-
-    # samples = torch.istft(torch.complex(samples, torch.zeros_like(samples)), n_fft=n_fft, hop_length=n_fft//4, win_length=n_fft, window=window, return_complex=False, length=n_fft+1)  # Force output to match original length
-    # targets = torch.istft(torch.complex(targets, torch.zeros_like(targets)), n_fft=n_fft, hop_length=n_fft//4, win_length=n_fft, window=window, return_complex=False, length=n_fft+1)  # Force output to match original length
-
+    samples = diffusion.sample(input=inputs, target=targets, cond=cond, num_steps=diffusion.noise_steps)
+ 
     return samples, targets
