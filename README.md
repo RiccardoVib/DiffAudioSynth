@@ -30,9 +30,10 @@ This repository contains all the necessary utilities to use our architectures. F
 
 # Architecture
 
-![Alt text](./plots/DiffSynth.pdf)
+<embed src="./plots/DiffSynth.pdf" type="application/pdf" width="600" height="400" />
 
-![Alt text](./plots/DiffSynth1.pdf)
+<embed src="./plots/DiffSynth1.pdf" type="application/pdf" width="600" height="400" />
+
 
 # Datasets
 
