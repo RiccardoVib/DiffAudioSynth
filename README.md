@@ -22,7 +22,7 @@ This repository contains all the necessary utilities to use our architectures. F
 ### Contents
 
 1. [Datasets](#datasets)
-2. [Architecture)(#architecture)
+2. [Architecture](#architecture)
 3. [How to Train and Run Inference](#how-to-train-and-run-inference)
 4. [Audio Examples](#audio-examples)
 
