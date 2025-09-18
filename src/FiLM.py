@@ -1,3 +1,17 @@
+# Copyright (C) 2025 Riccardo Simionato, University of Oslo
+# Inquiries: riccardo.simionato.vib@gmail.com.com
+#
+# This code is free software: you can redistribute it and/or modify it under the terms
+# of the GNU Lesser General Public License as published by the Free Software Foundation,
+# either version 3 of the License, or (at your option) any later version.
+#
+# This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU Less General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along with this code.
+# If not, see <http://www.gnu.org/licenses/>.
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -87,16 +101,4 @@ class FiLM(nn.Module):
         # Apply modulation: gamma * x + beta
         return gamma * x + beta
 
-
-if __name__ == "__main__":
-    batch_size = 16
-    frame_size = 256
-    input_shape = (batch_size, frame_size, 1)
-    input = torch.randn(input_shape)
-    num_contioning = 1
-    continioning = torch.randn((batch_size, frame_size, num_contioning))
-    print(f"input: {input}")
-    film = FiLM(input_dim=1, condition_dim=num_contioning, use_layer_norm=True)
-    output = film(input, continioning)
-    print(f"output: {output}")
 
