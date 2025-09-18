@@ -92,10 +92,10 @@ python starterMIDI_test.py
 # Audio Example
 
 [Target](audio/real_output.wav)
-[512](audio/512_test_output.wav)
-[1024](audio/1024_test_output.wav)
-[2048](audio/2048_test_output.wav)
-[4096](audio/4096_test_output.wav)
+[512](audio/512_test_prediction.wav)
+[1024](audio/1024_test_prediction.wav)
+[2048](audio/2048_test_prediction.wav)
+[4096](audio/4096_test_prediction.wav)
 
 # Bibtex
 
