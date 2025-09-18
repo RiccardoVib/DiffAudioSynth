@@ -1,17 +1,31 @@
+# Copyright (C) 2025 Riccardo Simionato, University of Oslo
+# Inquiries: riccardo.simionato.vib@gmail.com.com
+#
+# This code is free software: you can redistribute it and/or modify it under the terms
+# of the GNU Lesser General Public License as published by the Free Software Foundation,
+# either version 3 of the License, or (at your option) any later version.
+#
+# This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU Less General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along with this code.
+# If not, see <http://www.gnu.org/licenses/>.
+
+
 from loaderMIDI import MidiAudioDataset
 from pathlib import Path
 from InferenceTest import test_diffusion_model
 
-noise_steps = 1000
-
+noise_steps = 1
 model_path = "../../TrainedModels/"
 root_dir_midi = "../../Files/MaestroDataset/TRAIN/"
 root_dir_audio = "../../Files/MaestroDataset/TRAIN/"
 dataset_path = "../../Files/MaestroDataset/"
-batch_size = 1  # 16
-fs = 48000 // 4
+batch_size = 1
+fs = 48000
 resolution = 2
-output_lengths = [4096, 2024, 1024, 512]  ## 1 second
+output_lengths = [4096, 2024, 1024, 512]
 input_dimension = 1
 output_dimension = 1
 save_dataset = False
@@ -21,11 +35,10 @@ shuffle = True
 all_in_memory = True
 data_type = 'torch.float32'
 mono = True
+stride = 0
 
 for output_length in output_lengths:
-
-    stride = 0#(3*output_length // 4)  # 0
-
+    
     model_name = "DiffusionMIDI_STFT" + str(output_length)
     model_path_ = Path(model_path) / model_name
 
