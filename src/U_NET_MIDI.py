@@ -1,3 +1,17 @@
+# Copyright (C) 2025 Riccardo Simionato, University of Oslo
+# Inquiries: riccardo.simionato.vib@gmail.com.com
+#
+# This code is free software: you can redistribute it and/or modify it under the terms
+# of the GNU Lesser General Public License as published by the Free Software Foundation,
+# either version 3 of the License, or (at your option) any later version.
+#
+# This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU Less General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along with this code.
+# If not, see <http://www.gnu.org/licenses/>.
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -230,30 +244,3 @@ class SimpleAudioUNet(nn.Module):
 
         # Output
         return self.output(x)
-
-
-# Example usage
-if __name__ == "__main__":
-    # Create simple model
-    model = SimpleAudioUNet(
-        in_channels=1,
-        out_channels=1,
-        base_channels=64,
-        time_dim=128,
-        inject_channels=64  # Optional
-    )
-
-    # Test
-    batch_size = 2
-    audio_length = 8192
-
-    x = torch.randn(batch_size, 1, audio_length)
-    time = torch.randint(0, 1000, (batch_size,))
-    inject_feat = torch.randn(batch_size, 64, audio_length)  # Optional
-
-    with torch.no_grad():
-        output = model(x, time, inject_feat)
-
-    print(f"Input: {x.shape}")
-    print(f"Output: {output.shape}")
-    print(f"Parameters: {sum(p.numel() for p in model.parameters()):,}")
