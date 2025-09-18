@@ -1,10 +1,24 @@
+# Copyright (C) 2025 Riccardo Simionato, University of Oslo
+# Inquiries: riccardo.simionato.vib@gmail.com.com
+#
+# This code is free software: you can redistribute it and/or modify it under the terms
+# of the GNU Lesser General Public License as published by the Free Software Foundation,
+# either version 3 of the License, or (at your option) any later version.
+#
+# This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU Less General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along with this code.
+# If not, see <http://www.gnu.org/licenses/>.
+
 from loaderMIDI import MidiAudioDataset
 from pathlib import Path
 from DiffusionMIDIAudio import train_diffusion_model
 
 
 noise_steps = 1000
-epochs = 0
+epochs = 1000
 
 
 model_path = "../../TrainedModels/"
@@ -12,11 +26,10 @@ model_path = "../../TrainedModels/"
 root_dir_midi = "../../Files/MaestroDataset/TRAIN/"
 root_dir_audio = "../../Files/MaestroDataset/TRAIN/"
 dataset_path = "../../Files/MaestroDataset/"
-batch_size = 4  # 16
-fs = 48000 // 4
+batch_size = 4
+fs = 48000
 resolution = 2
-output_lengths = [2048, 1024, 512] ## 1 second
-output_lengths = [4096] ## 1 second
+output_lengths = [4096, 2048, 1024, 512]
 stride = 0
 input_dimension = 1
 output_dimension = 1
