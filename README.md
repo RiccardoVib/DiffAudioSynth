@@ -91,7 +91,7 @@ python starterMIDI_test.py
 
 # Audio Example
 
-[Listen to Audio]("./audio/real_output.wav")
+[Listen to Audio]("audio/real_output.wav")
 
 # Bibtex
 
