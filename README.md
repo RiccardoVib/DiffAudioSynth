@@ -4,8 +4,6 @@ This code repository is for the article _Low-Latency Diffusion-based Audio Synth
 
 This repository contains all the necessary utilities to use our architectures. Find the code located inside the "./src" folder, and the weights of pre-trained models inside the "./weights" folder
 
-Visit our [companion page with audio examples](https://riccardovib.github.io/NeuralSample-basedPiano_pages/)
-
 ### Folder Structure
 
 ```
@@ -24,21 +22,28 @@ Visit our [companion page with audio examples](https://riccardovib.github.io/Neu
 ### Contents
 
 1. [Datasets](#datasets)
-2. [How to Train and Run Inference](#how-to-train-and-run-inference)
-3. [Audio Examples](#audio-examples)
+2. [Architecture)(#architecture)
+3. [How to Train and Run Inference](#how-to-train-and-run-inference)
+4. [Audio Examples](#audio-examples)
 
 <br/>
+
+# Architecture
+
+![Alt text](./plots/DiffSynth.png)
+
+![Alt text](./plots/DiffSynth1.png)
 
 # Datasets
 
 Datasets are available [here](https://magenta.withgoogle.com/datasets/maestro)
 
-Our architectures were evaluated on 2018 folder.
+Our architectures were evaluated on the 2018 folder.
 
 
 # How To Train and Run Inference 
 
-This code relies on Python 3.9 and TensorFlow.
+This code relies on Python 3.9 and torch.
 First, install Python dependencies:
 ```
 cd ./src
@@ -80,7 +85,9 @@ python starter.py --datasets DatasetSingleNoteFilter_ --model S6 --only_inferenc
 
 # Audio Example
 
-
+<audio controls>
+  <source src="./audio/512.wav" type="audio/mpeg">
+</audio>
 
 
 # Bibtex
