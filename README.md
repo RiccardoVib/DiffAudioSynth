@@ -92,7 +92,7 @@ python starterMIDI_test.py
 # Audio Example
 
 <audio controls>
-  <source src="./audio/512.wav" type="audio/mpeg">
+  <source src="./audio/real_output.wav" type="audio/mpeg">
 </audio>
 
 
