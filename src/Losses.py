@@ -1,3 +1,17 @@
+# Copyright (C) 2025 Riccardo Simionato, University of Oslo
+# Inquiries: riccardo.simionato.vib@gmail.com.com
+#
+# This code is free software: you can redistribute it and/or modify it under the terms
+# of the GNU Lesser General Public License as published by the Free Software Foundation,
+# either version 3 of the License, or (at your option) any later version.
+#
+# This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU Less General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along with this code.
+# If not, see <http://www.gnu.org/licenses/>.
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -120,28 +134,3 @@ def elementwise_normalized_mse_loss(pred, target, eps=1e-8):
     squared_errors = (pred - target) ** 2
     target_sq = target ** 2 + eps
     return torch.mean(squared_errors / target_sq)
-
-
-if __name__ == "__main__":
-    # Create sample data
-    pred = torch.randn(10, 5)
-    target = torch.randn(10, 5)
-
-    # Using class-based loss
-    loss_fn = NormalizedMSELoss()
-    loss = loss_fn(pred, target)
-    print(f"Normalized MSE Loss: {loss.item():.6f}")
-
-    # Using functional version
-    loss_func = normalized_mse_loss(pred, target)
-    print(f"Functional Normalized MSE Loss: {loss_func.item():.6f}")
-
-    # Element-wise normalized version
-    elem_loss_fn = ElementwiseNormalizedMSELoss()
-    elem_loss = elem_loss_fn(pred, target)
-    print(f"Element-wise Normalized MSE Loss: {elem_loss.item():.6f}")
-
-    # Compare with standard MSE
-    mse_fn = nn.MSELoss()
-    mse_loss = mse_fn(pred, target)
-    print(f"Standard MSE Loss: {mse_loss.item():.6f}")
