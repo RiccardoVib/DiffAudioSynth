@@ -30,8 +30,8 @@ This repository contains all the necessary utilities to use our architectures. F
 
 # Architecture
 
-![Alt text]("plots/DiffSynth.png")
-![Alt text]("plots/DiffSynth1.png")
+![Alt text](plots/DiffSynth.png)
+![Alt text](plots/DiffSynth1.png)
 
 
 # Datasets
