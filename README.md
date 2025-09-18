@@ -54,19 +54,27 @@ pip install -r requirements.txt
 To train models, use the starter.py script.
 Ensure you have loaded the dataset into the chosen datasets folder
 
-Available options: 
-* --model_save_dir - Folder directory in which to store the trained models [str] (default ="./models")
-* --data_dir - Folder directory in which the datasets are stored [str] (default="./datasets")
-* --datasets - The names of the datasets to use. [ [str] ] (default=[" "] )
-* --epochs - Number of training epochs. [int] (default=60)
-* --model_type - The name of the model to train ('S6', 'LSTM') [str] (default=" ")
-* --cond_dim - The dimension of the conditioning vector [int] (default=1)
-* --batch_size - The size of each batch [int] (default=512)
-* --mini_batch_size - Number of samples to process each iteration [int] (default=512)
-* --units = The hidden layer size (number of units) of the network. [ [int] ] (default=64)
-* --learning_rate - the initial learning rate [float] (default=3e-4)
-* --only_inference - When True, skips training and runs only inference on the pre-model. When False, runs training and inference on the trained model. [bool] (default=False)
- 
+Available options (to be changed in starterMIDI.py or starterMIDI_test.py) : 
+* --model_path - Folder directory in which to store the trained models [str] (default ="./models")
+* --root_dir_midi - Folder directory in which the midi datasets are stored [str] (default="./datasets/midi")
+* --root_dir_audio - Folder directory in which the audio datasets are stored [str] (default="./datasets/audio")
+* --dataset_path - Folder directory in which the dataset is stored [str] (default="./datasets")
+* --filename - The names of the datasets to use. [str] (default="Maestro"])
+* --epochs - Number of training epochs. [int] (default=1000)
+* --batch_size - The size of each batch [int] (default=4)
+* --fs - The desired sample rate [int] (default=48000)
+* --stride - Number of samples of the overlap [int] (default=0)
+* --noise_steps = The number of denoising steps. [ [int] ] (default=1000)
+* --mono - the initial learning rate [float] (default=3e-4)
+* --data_type - When True, skips training and runs only inference on the pre-model. When False, runs training and inference on the trained model. [bool] (default=False)
+* --resolution = 2
+* --output_lengths = [4096, 2048, 1024, 512]
+* --input_dimension = 1
+* --output_dimension = 1
+* --save_dataset = False
+* --load_dataset = False
+* --shuffle = True
+* --all_in_memory = True
 
 Example training case: 
 ```
